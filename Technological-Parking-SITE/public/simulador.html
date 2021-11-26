@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="pt">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simulador</title>
+
+    <link rel="stylesheet" href="style.css">
+    <script src="./assets/js/funcoes.js"></script>
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Exo+2:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+        rel="stylesheet">
+</head>
+
+<body>
+
+    <div class="header">
+        <div class="container">
+            <h3><a href="index.html"><img src="logotipo TP_bandtec.jpeg" alt="" style="width: 200px;"></a></h3>
+            <ul class="navbar">
+                <li><a href="index.html"> Home</a></li>
+                <li><a href="sobrenos.html">Sobre nós</a></li>
+                <li class="active"><a href="simulador.html">Simulação</a></li>
+                <li><a href="instalacao.html">Instalação</a></li>
+                <li><a href="cadastro.html">Cadastro</a></li>
+                <li><a href="login.html">Login</a></li>
+            </ul>
+        </div>      
+    </div>
+
+    <div class="banner">
+        <div class="formSimul">
+            <h2>Simular ganhos</h2>
+            <div id="simulador" class="simulador" style="display: block;">
+              <h2>Média de lucro mensal atual:</h2><br>
+                <input type="text" id="ipt_valor" placeholder="Insira média de lucro mensal"><br><br>
+
+                <button onclick="simular_valores()">simular valores</button>
+                </div>
+                
+                <div id="div_resultado" class="resposta" style="display: none;">
+                    <span id="resposta"></span>
+                    <br><br>
+                    <button onclick="voltar()">Voltar ao Simulador</button>
+                </div>
+
+        </div>
+
+    </div>
+
+    <div class="footer">
+        <p>Technological Parking © 2021</p>
+    </div>
+
+</body>
+
+</html>
+<script>
+                
+                function simular_valores() {
+                    var valor = ipt_valor.value;
+                    
+                    var calculo = valor * 0.3;
+                    var valor30 = Number(valor) + Number(calculo);
+                    valor30 = valor30.toFixed(2)
+
+                simulador.style.display = 'none';
+                div_resultado.style.display = 'block';
+
+                    resposta.innerHTML = `
+                    <b>Atualmente sem a utilização de uma tomada de decisão inteligente o seu lucro mensal é de <b><span style="color: red;">R$ ${valor}</span></b><br>
+                    utilizando nosso sistema e obtendo uma tomada de decisão inteligente você pode ter um ganho de <b><span style="color: green;">30%</span></b> a mais mensalmente
+                    <br>totalizando:<b><span style="color: green;">R$ ${valor30}</span></b> no seu ganho mensal`
+
+                }
+                function voltar() {
+                
+                    simulador.style.display = 'block';
+                    div_resultado.style.display = 'none';
+                    ipt_valor.value = '';
+
+
+                }
+                </script>

@@ -1,0 +1,245 @@
+*{
+    font-family: Arial, Helvetica, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+body{
+    background-color: rgb(237, 234, 234);  
+}
+
+.header{
+    height: 100px;
+    background-color: white;
+}
+.header .container a {
+    text-decoration: none;
+    color: #324b74;
+}
+
+.header p{
+    color: #324b74;
+    padding-top: 5px;
+}
+.container {
+    width: 80%;
+    height: 100%;
+    margin: auto;
+    
+}
+
+.header .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.navbar {
+    display: flex;
+    list-style: none;
+    width: 25%;
+    justify-content: space-between;
+}
+
+.navbar li {
+    font-style: none;
+    font-weight: lighter;
+    color: black;
+}
+
+.navbar .active {
+    font-weight: bolder;
+}
+.area{
+    display: flex;
+    height: 500px;
+}
+
+.dashboard img{
+    margin-top: 2%;
+    height: 25px;
+}
+
+.imagem{
+    height: 28px;
+    
+}
+
+.menu{
+    width: 25%;
+    border-radius: 10px;
+    margin:20px;
+    background-color: white;
+    padding: 10px;
+}
+
+.grafico{
+    display: flex;
+    flex-direction: column;
+    background-color: white;
+    width: 75%;
+    height: 65%;
+    margin-top:20px;
+    margin-left: 40px;
+    margin-bottom: 150px;
+    margin-right: 40px;
+    border-radius: 10px;
+    align-items: center;
+    padding-top: 10px;
+    padding-bottom: 10px;
+
+}
+
+.grafico h1{
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+
+
+.grafico h3{
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    margin-top: 15px;
+}
+
+.divLegenda{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between; 
+    width:500px; 
+    height: 300px;
+}
+
+.divLegenda span{
+    margin-right: 0%;
+    border-radius: 10%; 
+    width: 25px;
+    height: 20px;
+
+}
+
+#pouco_movimento{
+    background-color: red; 
+}
+
+#movimento_mediano{
+    background-color: yellow;
+}
+
+#movimento_alto{
+    background-color: green;
+}
+
+.listaLateral{
+    color: black;
+    list-style: none;
+    
+}
+
+.listaLateral a{
+    text-decoration: none;
+    color: black;
+}
+
+.divLista{
+    display: flex;
+    align-items: center;
+    margin-left: 10px;
+}
+
+.divLista a{
+    margin-top: 5px;
+}
+
+.divRelatorio{
+    display:flex;
+    align-items: center;
+}
+
+.divRelatorio img{
+    height: 30px;
+    padding-left: 10px;
+}
+.divRelatorio a{
+   margin-top: 10px;
+
+}
+
+.menu h4{
+    margin-left: 5px;
+}
+
+.menu hr{
+    width: 90%;
+   margin-left: 5px;
+   height: 1px;
+   background-color: rgb(143, 142, 142);
+   margin-top: 5px;
+}
+
+.menu h5{
+    color:  rgb(143, 142, 142);
+    margin-right: 5px;
+}
+
+#relatoriosSalvos{
+    height:25px;
+    margin-top: 0;
+}
+
+.menu img{
+    height: 30px;
+    margin-top: 10px;
+}
+
+.menu a{
+    padding-left: 10px;
+    padding-top: 10px;
+    margin-bottom: 5px;
+}
+
+.h5{
+    margin-top: 10px;
+    margin-left: 10px;
+    display: flex;
+    align-items: center;
+}
+
+#divMostrar{
+    position: absolute;
+    padding-left: 550px;
+    padding-top: 8px;   
+}
+
+.footer{
+    background-color:  rgb(22, 22, 61);
+    height: 150px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.footer p{
+    color: whitesmoke;
+}
+
+.footer {
+    background-color:  rgb(26, 28, 92);
+    height: 80px; 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.footer p {
+    color: whitesmoke;
+    font-weight: bolder;
+}
+
+
+
+
+
+
+
+
+
+

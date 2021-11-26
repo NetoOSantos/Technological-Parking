@@ -1,0 +1,414 @@
+*{
+    font-family: Arial, Helvetica, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+.header{
+    height: 100px;
+    background-color: white;
+}
+.header .container a {
+    text-decoration: none;
+}
+.container {
+    width: 80%;
+    height: 100%;
+    margin: auto;
+}
+
+.header .container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.navbar {
+    display: flex;
+    flex-direction: row;
+    list-style: none;
+    width: 60%;
+    justify-content: space-between;
+
+}
+
+.header h3{
+    color: rgb(90, 90, 136);
+}
+
+.navbar li {
+    font-style: none;
+    font-weight: lighter;
+}
+.navbar li a{
+    text-decoration: none;
+    color: #324b74;
+}
+
+.navbar li :hover {
+color:white;
+background-color: #324b74;
+padding: 5px;
+border-radius: 5px;
+transition-duration: 0.1s;
+list-style: none;
+
+}
+
+.navbar .active {
+    font-weight: bolder;
+}
+
+.banner {
+    height: 500px;
+    background-image: url(banner.jpg);
+    background-size: cover;
+    background-repeat: no-repeat;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-top-left-radius: 45px; 
+    border-top-right-radius: 45px;
+}
+
+.banner h3 {
+    height: 50px; 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: whitesmoke;
+}
+
+.message {
+    margin-right: 250px;
+    width: 15%;
+    color: whitesmoke;
+    font-size: 40px;
+}
+
+.message span {
+    font-weight: bolder;
+    width: 15%;
+}
+
+.proposito {
+    height: 500px;
+    background-color: white;
+}
+
+.proposito .container .mvv div img {
+    height: 150px;
+    width: 150px;
+}
+
+.proposito .container .mvv {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.proposito .container .mvv div {
+    width: 20vw;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 50px;
+    text-align: center;
+}
+
+.proposito .container h2{
+    color: rgb(90, 90, 136);
+    padding: 25px;
+    background-color: whitesmoke;
+    border-radius: 25px;
+}
+
+.proposito .container .mvv div h2 {
+    color: rgb(26, 28, 92);
+    font-weight: bolder;
+    margin: 25px;
+}
+
+.footer{
+    background-color:  rgb(22, 22, 61);
+    height: 150px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.footer p{
+    color: whitesmoke;
+}
+
+.footer {
+    background-color:  rgb(26, 28, 92);
+    height: 80px; 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.footer p {
+    color: whitesmoke;
+    font-weight: bolder;
+}
+
+/* Calculadora */
+
+.banner .formSimul {
+    background-color: whitesmoke;
+    height: 250px;
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border-radius: 15px;
+    box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.664)
+ }
+ .banner .formSimul div {
+     display: flex;
+     flex-direction: column;
+     
+ }
+ 
+ .banner .formSimul h2 {
+     color: rgb(26, 28, 92);
+ }
+ 
+ .banner .formSimul input {
+     border-radius: 10px;
+     padding: 10px;
+     border: solid 2px;
+     border-color: rgb(26, 28, 92);
+ }
+ 
+ .banner .formSimul {
+     color: rgb(26, 28, 92);
+     font-weight: bolder;
+     text-align: center;
+ }
+ .banner .formSimul button {
+     border: none;
+     border-radius: 10px;
+     padding: 10px 20px;
+     color: white;
+     background-color: rgb(26, 28, 92);
+     cursor: pointer;
+ 
+ }
+ .banner .formSimul button :hover{
+     text-shadow: 0 0 4px #fff;
+ }
+ .banner .formSimul .simulador {
+     color: rgb(26, 28, 92);
+     font-weight: bolder;
+     font-size: 12px;
+     text-align: center;
+ }
+ .banner .formSimul .resposta {
+     color: rgb(26, 28, 92);
+     font-weight: bolder;
+     font-size: 12px;
+     text-align: center;
+ }
+/* Login */
+
+.banner .formLogin {
+   background-color: whitesmoke;
+   height: 250px;
+   width: 150%;
+   display: flex;
+   flex-direction: column;
+   align-items: center;
+   justify-content: center;
+   border-radius: 15px;
+   box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.664)
+}
+.banner .formLogin div {
+    display: flex;
+    flex-direction: column;
+    
+}
+
+.banner .formLogin h2 {
+    color: rgb(26, 28, 92);
+}
+
+.banner .formLogin input {
+    border-radius: 10px;
+    padding: 10px;
+    border: solid 2px;
+    border-color: rgb(26, 28, 92);
+}
+
+.banner .formLogin {
+    color: rgb(26, 28, 92);
+    font-weight: bolder;
+    text-align: center;
+}
+.banner .formLogin button {
+    border: none;
+    border-radius: 10px;
+    padding: 10px 20px;
+    color: white;
+    background-color: rgb(26, 28, 92);
+    cursor: pointer;
+
+}
+.banner .formLogin button :hover{
+    text-shadow: 0 0 4px #fff;
+}
+.banner .formLogin .simulador {
+    color: rgb(26, 28, 92);
+    font-weight: bolder;
+    font-size: 12px;
+    text-align: center;
+}
+.banner .formLogin .resposta {
+    color: rgb(26, 28, 92);
+    font-weight: bolder;
+    font-size: 12px;
+    text-align: center;
+}
+.banner img {
+    border-radius: 15px;
+    border-color:rgb(26, 28, 92) ;
+}
+.banner .sobrenos {
+   background-color: whitesmoke;
+   height: 300px;
+   width: 85%;
+   display: flex;
+   flex-direction: column;
+   align-items: center;
+   justify-content: space-around;
+   border-radius: 15px;
+}
+.banner .sobrenos p {
+    color: rgb(26, 28, 92) ;
+    font-size: 18px;
+    font-weight: bolder;
+    padding: 25px;
+}
+
+/* Cadastro */
+
+.banner2 {
+    height: 780px;
+    background-image: url(banner.jpg);
+    background-size: cover;
+    background-repeat: no-repeat;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-top-left-radius: 45px; 
+    border-top-right-radius: 45px;
+}
+.banner2 .formcadastro {
+    background-color: whitesmoke;
+    height: 730px;
+    width: 450px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border-radius: 15px;
+    box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.664);
+    
+ }
+ .banner2 .formcadastro div {
+     display: flex;
+     flex-direction: column;
+ }
+
+ .banner2 .formcadastro h2 {
+     color: rgb(26, 28, 92);
+ }
+ 
+ .banner2 .formcadastro input {
+    border-radius: 10px;
+    padding: 10px;
+    border: solid 2px;
+    border-color: rgb(26, 28, 92);
+ }
+ 
+ .banner2 .formcadastro {
+     color: rgb(26, 28, 92);
+     font-weight: bolder;
+     text-align: center;
+ }
+ .banner2 .formcadastro button {
+     border: none;
+     border-radius: 10px;
+     padding: 10px 20px;
+     color: white;
+     background-color: rgb(26, 28, 92);
+     transition-duration: 0.4s;
+     cursor: pointer;
+     text-decoration: none;
+ }
+ .banner2 .formcadastro button :hover{
+    text-shadow: 0 0 4px #fff;
+}
+
+ /*RAYLANE*/
+.dashboard{
+    margin-top: 2%;
+}
+
+.imagem{
+    height: 28px;
+    
+}
+
+.grafico{
+    background-color: rgb(237, 234, 234);
+    display: flex;
+    
+}
+
+/*.grafico2{
+    background-color: white;
+    width: 50%;
+
+}*/
+
+.menu{
+    height: 80%;
+    width: 25%;
+    border-radius: 10px;
+    margin-top: 10px;
+    margin-left: 20px;
+    position: absolute;
+    
+
+
+}
+
+.listaLateral{
+    color: black;
+    list-style: none;
+    
+}
+
+
+.listaLateral a{
+    text-decoration: none;
+    color: black;
+
+
+}
+
+
+

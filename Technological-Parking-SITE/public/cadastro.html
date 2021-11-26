@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="pt">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastro</title>
+
+    <script src="./assets/js/funcoes.js"></script>
+
+    <link rel="stylesheet" href="./style.css">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Exo+2:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+        rel="stylesheet">
+</head>
+
+<body>
+
+    <div class="header">
+        <div class="container">
+            <h3><a href="index.html"><img src="logotipo TP_bandtec.jpeg" alt="" style="width: 200px;"></a></h3>
+            <ul class="navbar">
+                <li><a href="index.html"> Home</a></li>
+                <li><a href="sobrenos.html">Sobre nós</a></li>
+                <li><a href="simulador.html">Simulação</a></li>
+                <li><a href="instalacao.html">Instalação</a></li>
+                <li class="active"><a href="cadastro.html">Cadastro</a></li>
+                <li><a href="login.html">Login</a></li>
+            </ul>
+        </div>      
+    </div>
+
+    <div class="banner2">
+        <div class="container ">
+            <div class="card medio">
+                <div class="formcadastro">
+                    <form id="form_cadastro" method="post" onsubmit="return cadastrar()">
+                          
+                            Nome da Empresa:<br>
+                            <input type="text" name="nome_empresa" placeholder=" Insira nome da empresa">
+                            <br><br>
+                            CNPJ:<br>
+                            <input type="text" name="cnpj"  placeholder=" Insira o CNPJ">
+                            <br><br>
+                            Contato:<br>
+                            <input type="text" name="contato" placeholder=" Insira seu telefone">
+                            <br><br>
+                            Numero do Endereço:<br>
+                            <input type="text" name="num_endereco" placeholder=" Insira seu endereço">
+                            <br><br>
+                            Cep:<br>
+                            <input type="text" name="cep" placeholder=" Insira seu endereço">
+                            <br><br>
+                            Quantidade de vagas:<br>
+                            <input type="text" name="qtd_vagas" placeholder=" Insira seu endereço">
+                            <br><br>  
+                            E-mail:<br>
+                            <input type="email" name="email" placeholder=" Insira seu E-mail">
+                            <br><br>
+                            Senha:<br>
+                            <input type="password" name="senha" placeholder=" **********">
+                            <br><br>
+                            Confirmação de Senha:<br>
+                            <input type="password" name="confirmacao-senha" placeholder=" **********">
+                            <br><br>
+                            <button class="btn">Cadastrar</button>
+                    </form>
+                </div>
+
+                <div id="div_aguardar" class="loading-div" style="display: none;">
+                    <img src="./assets/circle-loading.gif" id="loading-gif">
+                </div>
+
+                <div id="div_erros_login">
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="footer">
+        <p>Technological Parking © 2021</p>
+    </div>
+
+</body>
+</html>
+
+<script>
+
+    function limparFormulario() {
+        document.getElementById("form_cadastro").reset();
+    }
+
+    function cadastrar() {
+        aguardar();
+
+        var formulario = new URLSearchParams(new FormData(document.getElementById("form_cadastro")));
+
+        var nome = formulario.get("nome_empresa");
+        var email = formulario.get("email");
+        var senha = formulario.get("senha");
+        var CNPJ = formulario.get("cnpj");
+        var contato = formulario.get("contato");
+        var num_endereco = formulario.get("num_endereco");
+        var cep = formulario.get("cep");
+        var qtd_vagas = formulario.get("qtd_vagas");
+        var confirmacaoSenha = formulario.get("confirmacao-senha");
+
+        // TODO: VERIFICAR AS VALIDAÇÕES QUE ELES ESTÃO APRENDENDO EM ALGORITMOS 
+        if (nome == "" || email == "" || senha == "" || confirmacaoSenha == "" || CNPJ == "" || contato == "" || num_endereco == "" || cep == "" || qtd_vagas == "") {
+            
+            window.alert("Preencha todos os campos para prosseguir!");
+
+            if (nome == "")  {
+                console.log('nome está em branco')
+            }
+            if (email == "" )  {
+                console.log('email está em branco')
+            }
+            if (senha == "" )  {
+                console.log('senha está em branco')
+            }
+            if (confirmacaoSenha == "" )  {
+                console.log('confirmacaoSenha está em branco')
+            }
+            if (CNPJ == "" )  {
+                console.log('CNPJ está em branco')
+            }
+            if (contato == "" )  {
+                console.log('Contato está em branco')
+            }
+            if (num_endereco == "" )  {
+                console.log('Numero do endereço está em branco')
+            }
+            if (cep == "" )  {
+                console.log('Cep está em branco')
+            }
+            if (qtd_vagas == "" )  {
+                console.log('Quantidade de vagas está em branco')
+            }
+            finalizarAguardar();
+            return false;
+        }
+        
+        if (email.indexOf("@") == -1 || email.indexOf(".com") == -1) {
+            window.alert("Ops, e-mail inválido! Verifique e tente novamente.");
+            finalizarAguardar();
+            return false;
+        }
+        
+        if (senha != confirmacaoSenha) {
+            window.alert("As senhas inseridas devem ser iguais para prosseguir!");
+            finalizarAguardar();
+            return false;
+        }
+
+        fetch("/usuarios/cadastrar", {
+            method: "POST",
+            body: formulario
+        }).then(function (resposta) {
+
+            console.log("resposta: ", resposta);
+
+            if (resposta.ok) {
+                window.alert("Cadastro realizado com sucesso!");
+                window.location = "login.html";
+                limparFormulario();
+                finalizarAguardar();
+            } else {
+                throw("Houve um erro ao tentar realizar o cadastro!");
+            }
+        }).catch(function (resposta) {
+            console.log(`#ERRO: ${resposta}`);
+            finalizarAguardar();
+        });
+
+        return false;
+    }
+
+</script>

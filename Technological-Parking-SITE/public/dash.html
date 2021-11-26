@@ -1,0 +1,217 @@
+<!doctype html>
+<html>
+
+<head>
+	<title>Dashboard</title>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
+	<script src="http://www.chartjs.org/dist/2.7.1/Chart.js"></script>
+	<script src="http://www.chartjs.org/samples/latest/utils.js"></script>
+	<style>
+		canvas {
+			-moz-user-select: none;
+			-webkit-user-select: none;
+			-ms-user-select: none;
+		}
+	</style>
+	<link rel="stylesheet" href="dashboard.css">
+</head>
+
+<body>
+	<div class="header">
+		<div class="container">
+			<h3><a href="index.html"><img id="logotipo" src="logotipo TP_bandtec.jpeg" alt="" style="width: 200px;"></a>
+			</h3>
+			<ul class="navbar">
+				<p> Olá, Aluno</p>
+				<img src="perfil.png" class="imagem">
+				<img src="configuracao.png" class="imagem">
+				<li class="dashboard"><a href="index.html.html"><img src="exit.png"></a></li>
+			</ul>
+		</div>
+	</div>
+
+	<div class="area">
+
+		<div class="menu">
+			<h4>Dashboard</h4>
+			<hr>
+			<ul class="listaLateral">
+				<li>
+					<div class="divLista"><img src="monitoramento.png"> <a href="Home.html">Vagas</a></div>
+				</li>
+				<li>
+					<div class="divLista"><img src="relatorios.png"> <a href="Home.html">Relatórios</a></div>
+				</li>
+				<li>
+					<div class="divLista"><img src="integracoes.png"> <a href="Home.html">Integrações</a></div>
+				</li>
+			</ul>
+			<hr>
+			<div class="h5">
+				<h5> RELATÓRIOS SALVOS </h5><img id="relatoriosSalvos" src="mais.png">
+			</div>
+			<ul class="listaLateral">
+				<li>
+					<div class="divRelatorio"><img src="page.png"> <a href="Home.html">Mês Atual</a></div>
+				</li>
+				<li>
+					<div class="divRelatorio"><img src="page.png"> <a href="Home.html">Semestral</a></div>
+				</li>
+				<li>
+					<div class="divRelatorio"><img src="page.png"> <a href="Home.html">Anual</a></div>
+				</li>
+				<li>
+					<div class="divRelatorio"><img src="page.png"> <a href="Home.html">2015-2021</a></div>
+				</li>
+			</ul>
+
+
+		</div>
+
+
+		<!--GRAFICO-->
+		<div class="grafico">
+			<h1>
+				Sensor Tcrt5000 - Proximidade
+			</h1>
+			<div id="divMostrar"></div>
+
+			<canvas id="chart"></canvas>
+			<h3>
+				Legenda:
+			</h3>
+			<br>
+			<div class="divLegenda">
+				<span id="pouco_movimento">
+				</span>Pouco movimento
+				<br>
+				<span id="movimento_mediano">
+				</span>Movimento mediano
+				<br>
+				<span id="movimento_alto">
+				</span>Movimento alto
+			</div>
+		</div>
+	</div>
+
+
+
+
+
+	<div class="footer">
+		<p>Technological Parking © 2021</p>
+	</div>
+
+	<script>
+
+		var context = document.getElementById("chart").getContext("2d");
+		context.canvas.width = 1000;
+		context.canvas.height = 300;
+
+		var configuration = {
+			type: 'line',
+			data: {
+				datasets: [{
+					label: "Presença",
+					type: 'line',
+					borderColor: ['rgb(0, 139, 212)'],
+					backgroundColor: ['rgb(26, 28, 92)']
+				}]
+			},
+			options: {
+				scales: {
+					xAxes: [{
+						distribution: 'series',
+						ticks: {
+							beginAtZero: true
+						}
+					}],
+					yAxes: [{
+						scaleLabel: {
+							display: true,
+							labelString: 'Presença'
+						},
+						ticks: {
+							beginAtZero: true
+						}
+					}]
+				},
+				animation: {
+					tension: {
+						duration: 1000,
+						easing: 'easeInOutBack',
+						from: 1,
+						to: 0,
+						loop: true
+					}
+
+				}
+			}
+		};
+
+		var chart = new Chart(context, configuration);
+
+
+		//Função para obter os dados de temperatura do server
+		//Seria mais interessante fazer isso com WebSocket, porém para fins academicos, os dados serão atualizados via HTTP
+
+		//Esse atributo dentro do contexto serve para saber qual foi o último índice processado, assim eliminado os outros elementos na
+		//hora de montar/atualizar o gráfico
+		this.lastIndexTemp = 0;
+		this.time = 0;
+
+		function get_data() {
+
+			var http = new XMLHttpRequest();
+			http.open('GET', 'http://localhost:3000/api', false);//LOCAL DE ONDE VAI OS DADOS
+			http.send(null);
+
+			var obj = JSON.parse(http.responseText);
+			if (obj.data.length == 0) {
+				return;
+			}
+
+			var _lastIndexTemp = this.lastIndexTemp;
+			this.lastIndexTemp = obj.data.length;
+			listTemp = obj.data.slice(_lastIndexTemp);
+
+			listTemp.forEach(data => {
+				//Máximo de 60 itens exibidos no gráfico
+				if (chart.data.labels.length == 10 && chart.data.datasets[0].data.length == 10) {
+					chart.data.labels.shift();
+					chart.data.datasets[0].data.shift();
+				}
+
+				chart.data.labels.push(this.time++);
+				chart.data.datasets[0].data.push(parseFloat(data));
+				chart.update();
+
+				if (this.time < 10) {
+					divMostrar.innerHTML = '<div style="border-radius: 50%; display: flex; justify-content: center; font-weight: bolder; align-items: center; background-color: red; color: white; width: 30px; heigth: 50px;padding:5px;">' + this.time + '</div>';
+
+				}
+				else if (this.time >= 10 && this.time <= 50) {
+					divMostrar.innerHTML = '<div style="border-radius: 50%; display: flex; justify-content: center; font-weight: bolder; align-items: center; background-color: yellow; color: black; width: 30px; heigth: 50px;padding:5px;">' + this.time + '</div>';
+
+				}
+				else {
+					divMostrar.innerHTML ='<div style="border-radius: 50%; display: flex; justify-content: center; font-weight: bolder; align-items: center; background-color: green; color: white; width: 30px; heigth: 50px;padding:5px;">' + this.time + '</div>';
+
+				}
+
+			});
+
+			document.getElementById('average').textContent = obj.average;
+
+
+
+		}
+
+		setInterval(() => {
+			get_data();
+		}, 800);
+
+	</script>
+</body>
+
+</html>
