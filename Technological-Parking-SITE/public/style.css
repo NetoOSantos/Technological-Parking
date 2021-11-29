@@ -45,7 +45,10 @@
     text-decoration: none;
     color: #324b74;
 }
-
+.navbar li #a_login{
+    text-decoration: none;
+    color: #ffffff;
+}
 .navbar li :hover {
 color:white;
 background-color: #324b74;
@@ -53,11 +56,21 @@ padding: 5px;
 border-radius: 5px;
 transition-duration: 0.1s;
 list-style: none;
-
 }
 
 .navbar .active {
     font-weight: bolder;
+}
+
+#login{
+    background-color: #062561;
+    padding: 5px;
+    border-radius: 5px;
+    color: white;
+}
+
+#login:hover{
+    background-color: #0c40a9; 
 }
 
 .banner {
@@ -81,10 +94,11 @@ list-style: none;
 }
 
 .message {
-    margin-right: 250px;
+    margin-right: -673px;
     width: 15%;
     color: whitesmoke;
     font-size: 40px;
+    position: fixed;
 }
 
 .message span {
