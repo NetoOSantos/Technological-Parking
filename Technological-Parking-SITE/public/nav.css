@@ -1,0 +1,395 @@
+@import url('https://fonts.googleapis.com/css?family=Varela+Round');
+html, body {
+    overflow-x: hidden;
+    height: 100%;
+}
+body {
+    background: #fff;
+    padding: 0;
+    margin: 0;
+    font-family: 'Varela Round', sans-serif;
+}
+.header {
+    display: block;
+    margin: 0 auto;
+    width: 100%;
+    max-width: 100%;
+    box-shadow: none;
+    background-color: #4444fa;
+    position: fixed;
+    height: 60px!important;
+    overflow: hidden;
+    z-index: 10;
+}
+.main {
+    display: flex;
+    margin: 0 auto;
+    display: block;
+    height: 45%;
+    margin-top: 60px;
+}
+.mainInner{
+    display: table!important;
+    height: 100%!important;
+    width: 100%!important;
+    text-align: center!important;
+}
+.mainInner div{
+    display:table-cell!important;
+    vertical-align: middle!important;
+    font-size: 3em!important;
+    font-weight: bold!important;
+    letter-spacing: 1.25px!important;
+}
+#sidebarMenu {
+    height: 100%!important;
+    position: fixed!important;
+    left: 0!important;
+    width: 250px!important;
+    margin-top: 60px!important;
+    transform: translateX(-250px)!important;
+    transition: transform 250ms ease-in-out!important;
+    background: linear-gradient(180deg, #4444fa 0%, #758bfa 100%)!important;
+}
+.sidebarMenuInner{
+    margin:0 !important;
+    padding:0!important;
+    border-top: 1px solid rgba(255, 255, 255, 0.10)!important;
+}
+.sidebarMenuInner li{
+    list-style: none!important;
+    color: #fff!important;
+    text-transform: uppercase!important;
+    font-weight: bold!important;
+    padding: 20px!important;
+    cursor: pointer!important;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.10)!important;
+}
+.sidebarMenuInner li span{
+    display: block!important;
+    font-size: 14px!important;
+    color: rgba(255, 255, 255, 0.50)!important;
+}
+.sidebarMenuInner li a{
+    color: #fff!important;
+    text-transform: uppercase!important;
+    font-weight: bold!important;
+    cursor: pointer!important;
+    text-decoration: none!important;
+}
+input[type="checkbox"]:checked ~ #sidebarMenu {
+    transform: translateX(0)!important;
+}
+
+input[type=checkbox] {
+    transition: all 0.3s!important;
+    box-sizing: border-box!important;
+    display: none!important;
+}
+.sidebarIconToggle {
+    transition: all 0.3s!important;
+    box-sizing: border-box!important;
+    cursor: pointer!important;
+    position: absolute!important;
+    z-index: 99!important;
+    height: 100%!important;
+    width: 100%!important;
+    top: 22px!important;
+    left: 15px!important;
+    height: 22px!important;
+    width: 22px!important;
+}
+.spinner {
+    transition: all 0.3s!important;
+    box-sizing: border-box!important;
+    position: absolute!important;
+    height: 3px!important;
+    width: 100%!important;
+    background-color: #fff!important;
+}
+.horizontal {
+    transition: all 0.3s!important;
+    box-sizing: border-box!important;
+    position: relative!important;
+    float: left!important;
+    margin-top: 3px!important;
+}
+.diagonal.part-1 {
+    position: relative!important;
+    transition: all 0.3s!important;
+    box-sizing: border-box!important;
+    float: left!important;
+}
+.diagonal.part-2 {
+    transition: all 0.3s!important;
+    box-sizing: border-box!important;
+    position: relative!important;
+    float: left!important;
+    margin-top: 3px!important;
+}
+input[type=checkbox]:checked ~ .sidebarIconToggle > .horizontal {
+    transition: all 0.3s!important;
+    box-sizing: border-box!important;
+    opacity: 0!important;
+}
+input[type=checkbox]:checked ~ .sidebarIconToggle > .diagonal.part-1 {
+    transition: all 0.3s!important;
+    box-sizing: border-box!important;
+    transform: rotate(135deg)!important;
+    margin-top: 8px!important;
+}
+input[type=checkbox]:checked ~ .sidebarIconToggle > .diagonal.part-2 {
+    transition: all 0.3s!important;
+    box-sizing: border-box!important;
+    transform: rotate(-135deg)!important;
+    margin-top: -9px!important;
+}
+
+/* content */
+
+.btn-chart{
+    font-family: 'Exo 2', sans-serif;
+    border: 0;
+    font-weight: 600;
+    font-size: 18px;
+    padding: 10px 15px;
+    color: white;
+    background-color: #E6005A;
+    margin: 5px;
+}
+
+.btns-dash{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 30px;
+}
+.graph{
+    width: 80%;
+    margin: auto;
+    padding-top: 45px;
+}
+.btn-chart {
+    font-family: 'Exo 2', sans-serif;
+    border: 0;
+    font-weight: 600;
+    font-size: 18px;
+    padding: 10px 15px;
+    color: white;
+    background-color: #E6005A;
+    margin: 5px;
+}
+
+/* chart */
+
+
+.dash {
+    top: 0;
+    left: 25%;
+    background-color: rgb(237, 234, 234);
+    height: 100vh; 
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+.regua {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    width: 100%;
+    margin-top: 30px;
+}
+
+.perigo-frio {
+    background-color: rgb(255, 79, 79);
+}
+
+.perigo-quente {
+    background-color: rgb(16, 161, 16);
+}
+
+.alerta-frio {
+    background-color: rgb(230, 230, 86);
+}
+
+.alerta-quente {
+    background-color: #fd993b;
+}
+
+.ideal {
+    background-color: rgb(192, 66, 192);
+}
+
+.item-regua {
+    padding: 5px;
+    width: 15%;
+    margin: 5px;
+    text-align: center;
+    padding-top: 15px;
+}
+
+.grafico{
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    background-color: white;
+    width: 80%;
+    height: 65%;
+    margin-top:20px;
+    margin-left: 40px;
+    margin-bottom: 150px;
+    margin-right: 40px;
+    border-radius: 10px;
+    align-items: center;
+    padding-top: 10px;
+    padding-bottom: 10px;
+
+}
+
+.grafico h1{
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+
+
+.grafico h3{
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    margin-top: 15px;
+}
+
+#divMostrar{
+    position: absolute;
+    padding-left: 550px;
+    padding-top: 8px;   
+}
+
+
+
+/* chart-metrics */
+
+.centralizar{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.graph1 {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    background-color: #eaeaea;
+    width: 45%;
+    height: 35vh;
+    margin: 10px;
+    padding: 5px;
+  }
+
+  /* cards estacionamento */
+
+
+main.cards {
+    display: flex;
+    padding: 32px;
+}
+
+.cards1 {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    min-width: 0;
+    word-wrap: break-word;
+    background-color: #fff;
+    background-clip: border-box;
+    border: 1px solid rgba(0,0,0,.125);
+    border-radius: 0.25rem;
+}
+
+.cards1 {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    margin-right: 2%;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    min-width: 0;
+    word-wrap: break-word;
+    background-color: #fff;
+    background-clip: border-box;
+    border: 1px solid rgba(0,0,0,.125);
+    border-radius: 0.25rem;
+}
+
+main.cards1 section.card1 {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    background: white;
+    padding: 1rem 1.5rem;
+    border-radius: 8px;
+    max-height: 468px;
+    margin-left: 32px;
+}
+
+main.cards1 section.card1:first-child {
+    margin-left: 0;
+}
+
+main.cards1 section.card1 .icon {
+    width: 64px;
+    height: 64px;
+}
+
+main.cards1 section.card1 img {
+    width: 100%;
+}
+
+main.cards1 section.card1 h3 {
+    font-size: 100%;
+    margin: 16px 0;
+}
+
+main.cards1 section.card1 span {
+    font-weight: 300;
+    max-width: 240px;
+    font-size: 80%;
+    margin-bottom: 16px;
+}
+
+main.cards1 section.card1 button {
+    padding: 0.5rem 1rem;
+    text-transform: uppercase;
+    border-radius: 32px;
+    border: 0;
+    cursor: pointer;
+    font-size: 80%;
+    font-weight: 500;
+    color: #fff;
+    margin-bottom: 16px 0;
+}
+
+main.cards1 section.card1.contact button {
+    background: linear-gradient(to right, #3E8AFF, #BBDEFF);
+}
+main.cards1 section.card1.shop button {
+    background: linear-gradient(to right, #3E8AFF, #BBDEFF);
+}
+main.cards1 section.card1.about button {
+    background: linear-gradient(to right, #3E8AFF, #BBDEFF);
+}
+
+main.cards1 section.card1.contact {
+    box-shadow: 20px 20px 50px -30px #DBC4FF;
+}
+main.cards1 section.card1.shop {
+    box-shadow: 20px 20px 50px -30px #AFD6FF;
+}
+main.cards1 section.card1.about {
+    box-shadow: 20px 20px 50px -30px #FFC1D5;
+}
+

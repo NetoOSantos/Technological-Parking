@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TechPark | Dashboard</title>
+
+    <link rel="stylesheet" href="nav.css">
+    <!-- <script src="../assets/js/funcoes.js"></script> -->
+
+    <!-- scripts do Chart.js -->
+    <script type="text/javascript" src="https://www.chartjs.org/dist/2.8.0/Chart.min.js"></script>
+    <!-- Bootstrap css -->
+    <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+</head>
+
+<body>
+
+    <div class="header"></div>
+    <input type="checkbox" class="openSidebarMenu" id="openSidebarMenu">
+    <label for="openSidebarMenu" class="sidebarIconToggle">
+        <div class="spinner diagonal part-1"></div>
+        <div class="spinner horizontal"></div>
+        <div class="spinner diagonal part-2"></div>
+    </label>
+    <div id="sidebarMenu">
+        <ul class="sidebarMenuInner">
+            <li>Technological <span>Parking</span></li>
+            <li><b style="color:rgb(136, 136, 136)">Dashboard</b></li>
+            <li><a href="graficos.html">Monitoramento</a></li>
+            <li><a href="">Suporte</a></li>
+            <li><a href="index.html">sair</a></li>
+        </ul>
+    </div>
+    <div id='center' class="main center">
+        <div class="centralizar">
+            <!-- Gráfico de Linhas -->
+            <div class="graph1">
+                <canvas id="chartLine"></canvas>
+            </div>
+
+            <!-- Gráfico de Barras -->
+            <div class="graph1">
+                <canvas id="myChart"></canvas>
+            </div>
+
+            <!-- Grafico Pizza/Torta -->
+            <div class="graph1">
+                <canvas id="myChart2"></canvas>
+            </div>
+        </div>
+    </div>
+    <div class="centralizar">
+        <main class="cards1">
+            <section class="card1 contact">
+                <div class="icon">
+                    <img src="https://image.flaticon.com/icons/png/512/51/51778.png" alt="Contact us.">
+                </div>
+                <h3>Estacionamento 1</h3>
+                <span>Monitore seu estacionamento em tempo real!</span>
+                <button onclick="Monitorar()">Monitorar</button>
+            </section>
+        </main>
+        <main class="cards1">
+            <section class="card1 shop">
+                <div class="icon">
+                    <img src="https://image.flaticon.com/icons/png/512/51/51778.png" alt="Shop here.">
+                </div>
+                <h3>Adquira o plano!</h3>
+                <span>Adquira nosso plano para poder gerenciar mais estacionamentos utilizando da nossa solução!</span>
+                <button>Comprar</button>
+            </section>
+        </main>
+        <main class="cards1">
+            <section class="card1 about">
+                <div class="icon">
+                    <img src="https://image.flaticon.com/icons/png/512/51/51778.png" alt="About us.">
+                </div>
+                <h3>Adquira o plano!</h3>
+                <span>Adquira nosso plano para poder gerenciar mais estacionamentos utilizando da nossa solução!</span>
+                <button>Comprar</button>
+            </section>
+        </main>
+    </div>
+    <div class="graph">
+        <canvas id="canvas_grafico"></canvas>
+    </div>
+    </div>
+    </div>
+
+
+
+
+    <script>
+        function Monitorar(){
+        window.location = './graficos.html'
+    }
+
+        function gerar_grafico() {
+            var http = new XMLHttpRequest();
+            http.open('GET', 'http://localhost:3000/medidas/tempo_permanencia', false);//LOCAL DE ONDE VEM OS DADOS
+            http.send(null);
+
+            var obj = JSON.parse(http.responseText);
+            if (obj.length == 0) {
+                console.log("Nenhum dado a ser exibido")
+            }
+            else {
+                var lista = obj.data;
+
+                var vagas = [];
+                var totalHoras = [];
+                for (i = 0; i < lista.length; i++) {
+                    vagas.push(lista[i].fksensor);
+                    totalHoras.push(lista[i].tempo_de_permanencia)
+                }
+
+                const ctx = document.getElementById('myChart').getContext('2d');
+                const myChart = new Chart(ctx, {
+                    type: 'bar',
+                    data: {
+                        labels: vagas,
+                        datasets: [{
+                            label: 'Tempo de permanência por vaga',
+                            data: totalHoras,
+                            backgroundColor: [
+                                'rgba(255, 99, 132, 0.2)',
+                                'rgba(54, 162, 235, 0.2)',
+                                'rgba(255, 206, 86, 0.2)',
+                                'rgba(75, 192, 192, 0.2)',
+                                'rgba(153, 102, 255, 0.2)',
+                                'rgba(255, 159, 64, 0.2)'
+                            ],
+                            borderColor: [
+                                'rgba(255, 99, 132, 1)',
+                                'rgba(54, 162, 235, 1)',
+                                'rgba(255, 206, 86, 1)',
+                                'rgba(75, 192, 192, 1)',
+                                'rgba(153, 102, 255, 1)',
+                                'rgba(255, 159, 64, 1)'
+                            ],
+                            borderWidth: 1
+                        }]
+                    },
+                    options: {
+                        scales: {
+                            y: {
+                                beginAtZero: true
+                            }
+                        }
+                    }
+                });
+            }
+        }
+
+
+
+        const ctx = document.getElementById('myChart2').getContext('2d');
+        const myChart = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: ['Domingo', 'Segunda', 'Terca', 'Quarta', 'Quinta', 'Sexta', 'Sabado'],
+                datasets: [{
+                    label: 'Tempo de permanência por vaga',
+                    data: [9, 13, 11, 12, 15, 17, 21, 19],
+                    backgroundColor: [
+                        'rgba(255, 99, 132, 0.2)',
+                        'rgba(54, 162, 235, 0.2)',
+                        'rgba(255, 206, 86, 0.2)',
+                        'rgba(75, 192, 192, 0.2)',
+                        'rgba(153, 102, 255, 0.2)',
+                        'rgba(255, 159, 64, 0.2)'
+                    ],
+                    borderColor: [
+                        'rgba(255, 99, 132, 1)',
+                        'rgba(54, 162, 235, 1)',
+                        'rgba(255, 206, 86, 1)',
+                        'rgba(75, 192, 192, 1)',
+                        'rgba(153, 102, 255, 1)',
+                        'rgba(255, 159, 64, 1)'
+                    ],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+
+        var ctxLine = document.getElementById("chartLine").getContext("2d");
+        var rotulosLine = ["Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"];
+        var dataLine = [7040.00, 8222.00, 1100.00, 6724.00, 7788.00, 8880.00, 10937.00, 12954.00, 9998.00, 9045.00, 11100.00, 18000.00];
+        var configLine = {
+            type: 'line',
+            data: {
+                labels: rotulosLine,
+                datasets: [
+                    {
+                        label: 'Lucro Mensal',
+                        data: dataLine,
+                        backgroundColor: [
+                            '#FF000022',
+                            '#FFFF0022',
+                            '#FF00FF22',
+                            '#00FFFF22',
+                            '#99009922',
+                            '#99990022',
+                            '#F0F00022',
+                            '#65002222',
+                        ],
+                        borderColor: [
+                            '#FF0000',
+                            '#FFFF00',
+                            '#FF00FF',
+                            '#00FFFF',
+                            '#990099',
+                            '#999900',
+                            '#F0F000',
+                            '#650022',
+                        ],
+                        borderWidth: 1
+                    }
+                ]
+            },
+            options: {
+
+                maintainAspectRatio: false,
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                    }
+                }
+            }
+        }
+
+
+
+
+
+
+        setInterval(function () {
+            gerar_grafico()
+        }, 1000);
+
+
+    </script>
+
+</body>
+
+</html>
+<script>
+    function Monitorar(){
+        window.location = './graficos.html'
+    }
+</script>

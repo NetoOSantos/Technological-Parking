@@ -48,12 +48,11 @@
                         </button>
                     </form>
 
-                </div>
-
                 <div id="div_aguardar" class="loading-div" style="display: none;">
-                    <img src="./assets/circle-loading.gif" id="loading-gif">
+                    <img src="./assets/circle-loading.gif" id="loading-gif" style="width: 50px;">
                 </div>
-
+                
+                </div>
                 <div id="div_erros_login">
 
                 </div>
@@ -117,7 +116,7 @@
                     sessionStorage.ID_USUARIO = json.id;
 
                     setTimeout(function () {
-                        window.location = "./dash.html";
+                        window.location = "./dashboard.html";
                     }, 1000); // apenas para exibir o loading
 
                 });

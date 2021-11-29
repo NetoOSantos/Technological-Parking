@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Technological Parking | Monitoramento</title>
+
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
+	<script src="http://www.chartjs.org/dist/2.7.1/Chart.js"></script>
+	<script src="http://www.chartjs.org/samples/latest/utils.js"></script>
+	<style>
+		.canvas {
+			-moz-user-select: none;
+			-webkit-user-select: none;
+			-ms-user-select: none;
+		}
+	</style>
+	<link rel="stylesheet" href="nav.css">
+</head>
+
+<body>
+
+	<div class="header"></div>
+	<input type="checkbox" class="openSidebarMenu" id="openSidebarMenu">
+	<label for="openSidebarMenu" class="sidebarIconToggle">
+		<div class="spinner diagonal part-1"></div>
+		<div class="spinner horizontal"></div>
+		<div class="spinner diagonal part-2"></div>
+	</label>
+	<div id="sidebarMenu">
+		<ul class="sidebarMenuInner">
+			<li>Technological <span>Parking</span></li>
+			<li><a href="dashboard.html">Dashboard</a></li>
+			<li><b style="color:rgb(136, 136, 136)">Graficos</b></li>
+			<li><a href="">Suporte</a></li>
+			<li><a href="index.html">sair</a></li>
+		</ul>
+	</div>
+	<div id='center' class="main">
+		<div class="dash">
+			<div class="regua">
+				<div class="item-regua perigo-frio">
+					<h4>Movimento Fraco</h4>
+					<h2>0-10% Ocupação</h2>
+				</div>
+				<div class="item-regua alerta-frio">
+					<h4>Alerta Critico Baixo</h4>
+					<h2>11-25% Ocupação</h2>
+				</div>
+				<div class="item-regua ideal">
+					<h4>Ideal</h4>
+					<h2>26-75% Ocupação</h2>
+				</div>
+				<div class="item-regua alerta-quente">
+					<h4>Alerta Critico Alto</h4>
+					<h2>76-90% Ocupação</h2>
+				</div>
+				<div class="item-regua perigo-quente">
+					<h4>Superlotação</h4>
+					<h2>90-100%</h2>
+				</div>
+			</div>
+
+			<div class="grafico">
+				<h1>
+					Sensor Tcrt5000 - Proximidade
+				</h1>
+				<div id="divMostrar"></div>
+	
+				<canvas id="chart"></canvas>
+				<br>
+				<canvas id="chart_2"></canvas>
+			</div>
+		</div>
+
+		<script>
+
+			var context = document.getElementById("chart").getContext("2d");
+			context.canvas.width = 1000;
+			context.canvas.height = 300;
+
+			var configuration = {
+				type: 'line',
+				data: {
+					datasets: [{
+						label: "Presença",
+						type: 'line',
+						borderColor: ['rgb(0, 139, 212)'],
+						backgroundColor: ['rgb(26, 28, 92)']
+					}]
+				},
+				options: {
+					scales: {
+						xAxes: [{
+							distribution: 'series',
+							ticks: {
+								beginAtZero: true
+							}
+						}],
+						yAxes: [{
+							scaleLabel: {
+								display: true,
+								labelString: 'Presença'
+							},
+							ticks: {
+								beginAtZero: true
+							}
+						}]
+					},
+					animation: {
+						tension: {
+							duration: 1000,
+							easing: 'easeInOutBack',
+							from: 1,
+							to: 0,
+							loop: true
+						}
+
+					}
+				}
+			};
+
+			var chart = new Chart(context, configuration);
+
+
+			//Função para obter os dados de temperatura do server
+			//Seria mais interessante fazer isso com WebSocket, porém para fins academicos, os dados serão atualizados via HTTP
+
+			//Esse atributo dentro do contexto serve para saber qual foi o último índice processado, assim eliminado os outros elementos na
+			//hora de montar/atualizar o gráfico
+			this.lastIndexTemp = 0;
+			this.time = 0;
+
+			function get_data() {
+
+				var http = new XMLHttpRequest();
+				http.open('GET', 'http://localhost:3000/medidas/atividadeSensor', false);//LOCAL DE ONDE VAI OS DADOS
+				http.send(null);
+
+				var obj = JSON.parse(http.responseText);
+				if (obj.data.length == 0) {
+					return;
+				}
+
+				var _lastIndexTemp = this.lastIndexTemp;
+				this.lastIndexTemp = obj.data.length;
+				listTemp = obj.data.slice(_lastIndexTemp);
+
+				listTemp.forEach(data => {
+					//Máximo de 60 itens exibidos no gráfico
+					if (chart.data.labels.length == 10 && chart.data.datasets[0].data.length == 10) {
+						chart.data.labels.shift();
+						chart.data.datasets[0].data.shift();
+					}
+
+					chart.data.labels.push(this.time++);
+					chart.data.datasets[0].data.push(parseFloat(data));
+					chart.update();
+					if (this.time <= 11) {
+						divMostrar.innerHTML = '<div style="border-radius: 50%; display: flex; justify-content: center; font-weight: bolder; align-items: center; background-color: red; color: white; width: 30px; heigth: 50px;padding:5px;">' + this.time + '</div>';
+
+					}
+					else if (this.time >= 11 && this.time <= 25) {
+						divMostrar.innerHTML = '<div style="border-radius: 50%; display: flex; justify-content: center; font-weight: bolder; align-items: center; background-color: yellow; color: black; width: 30px; heigth: 50px;padding:5px;">' + this.time + '</div>';
+
+					}
+					else if (this.time >= 26 && this.time <= 74) {
+						divMostrar.innerHTML = '<div style="border-radius: 50%; display: flex; justify-content: center; font-weight: bolder; align-items: center; background-color: purple; color: white; width: 30px; heigth: 50px;padding:5px;">' + this.time + '</div>';
+
+					}
+					else if (this.time >= 75 && this.time <= 90) {
+						divMostrar.innerHTML = '<div style="border-radius: 50%; display: flex; justify-content: center; font-weight: bolder; align-items: center; background-color: #ff7b00; color: white; width: 30px; heigth: 50px;padding:5px;">' + this.time + '</div>';
+
+					}
+					else {
+						divMostrar.innerHTML = '<div style="border-radius: 50%; display: flex; justify-content: center; font-weight: bolder; align-items: center; background-color:green; color: white; width: 30px; heigth: 50px;padding:5px;">' + this.time + '</div>';
+
+					}
+				});
+				//document.getElementById('average').textContent = obj.average;
+
+
+
+			}
+
+			setInterval(() => {
+				get_data();
+			}, 800);
+
+		</script>
+</body>
+
+
+</html>
